@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Mock LDAP Server for development",
   "main": "src/index.js",
-  "repository": "git@gitlab.ultraxinc.com:clincoln/mock-ldap-server.git",
   "author": "Chris Lincoln <clincoln@ultraxinc.com>",
   "license": "none",
   "private": true,
