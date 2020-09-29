@@ -14,7 +14,7 @@ const runMockLDAPServer = async () => {
 
     ///--- Globals
 
-    const SUFFIX = 'o=testultrax';
+    const SUFFIX = 'o=testfoobar';
     const db = {};
     const ldapServer = ldap.createServer();
 
@@ -160,22 +160,7 @@ const runMockLDAPServer = async () => {
     const entries = [
       'Ben Hacker',
       'Sally Peters',
-      'Chris Lincoln', 
-      'Brian Lincoln',
-      'Sharon Hestad',
-      'Michael Henley',
-      'Troy Prewitt',
-      'Travis Fisher',
-      'Dave Petet',
-      'Brett Nowlin',
-      'Kyle McCracken',
-      'Ryan Keeler',
-      'Nick Ortiz',
-      'King Butcher',
-      'Gannon Ross',
-      'Tyler Tisdale',
-      'Alex Larman',
-      'Scott Carlson',
+      
     ].map(fullName => {
       const name = fullName.split(' ');
       const username = `${name[0]
@@ -186,8 +171,8 @@ const runMockLDAPServer = async () => {
         givenname: name[0],
         sn: name[1],
         sAMAccountName: username,
-        email: [`${username}@ultraxinc.com`],
-        mail: `${username}@ultraxinc.com`,
+        email: [`${username}@foobarinc.com`],
+        mail: `${username}@foobarinc.com`,
         userpassword: '123',
         objectclass: 'Person',
       };
@@ -199,7 +184,7 @@ const runMockLDAPServer = async () => {
       // After this is complete, the ldap directory db only has the
       // first 15 entries from the test list above.
       // No errors are emitted
-      client.add(`cn=${entry.sAMAccountName}, o=testultrax`, entry, function(
+      client.add(`cn=${entry.sAMAccountName}, o=testfoobar`, entry, function(
         err,
       ) {
         if (err) console.log(err);

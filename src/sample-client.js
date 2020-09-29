@@ -1,18 +1,12 @@
 const ldap = require('ldapjs');
 
-// This code works with the ULTRAX AD server
-// The following ENV settings are for the the MOCK ldap server
-// To get this code to run on the ULTRAX AD server, obtain
-// the correct settings for all of the following from IT
-// and store them in the environment (using a method of your choosing).
-
 const ldapServer = process.env.LDAP_SERVER || 'ldap://localhost:1389';
 const ldapUser = process.env.LDAP_USER || 'root';
 const ldapPassword = process.env.LDAP_PASSWORD || 'secret';
-const ldapFilter = process.env.LDAP_FILTER || '(email=*@ultraxinc.com)'
-const ldapSearchBase = process.env.LDAP_SEARCH_BASE || 'o=testultrax'
+const ldapFilter = process.env.LDAP_FILTER || '(email=*@foobarinc.com)'
+const ldapSearchBase = process.env.LDAP_SEARCH_BASE || 'o=testfoobar'
 const ldapUserNameField = process.env.LDAP_USERNAME_FIELD || 'samaccountname'
-const ldapAuthDN = process.env.LDAP_AUTH_DN || 'cn=%USERNAME%, o=testultrax'
+const ldapAuthDN = process.env.LDAP_AUTH_DN || 'cn=%USERNAME%, o=testfoobar'
 
 function listUsers() {
   const client = ldap.createClient({
@@ -58,7 +52,9 @@ function listUsers() {
   }).then((response) => {
     client.unbind();
     return response;
-  }).catch(e => console.log(e));
+  }).catch(e => {
+    console.log(e);
+  });
 }
 
 function authenticateUser(username, password) {
@@ -74,13 +70,15 @@ function authenticateUser(username, password) {
   }).then((response) => {
     client.unbind();
     return response;
+  }).catch(e => {
+    console.log(e);
   });
 }
 
 (async function() {
   try {
     const users = await listUsers();
-    const isOk = await authenticateUser('clincoln', '123');
+    const isOk = await authenticateUser('bhacker', '123');
     console.log(users, isOk)
     
     console.log(process.argv)
